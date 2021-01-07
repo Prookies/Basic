@@ -46,12 +46,6 @@ public:
         }
     }
 
-    Status visit(TElemType e)
-    {
-        printf("%c", e);
-        return OK;
-    }
-
     Status InitBiTree()
     {
         root = NULL;
@@ -61,6 +55,54 @@ public:
     void Destroy()
     {
         DestroyBiTree(&root);
+    }
+
+    void Create()
+    {
+        CreateBiTree(&root);
+    }
+
+    Status Empty()
+    {
+        if (root)
+            return ERROR;
+        else
+            return OK;
+    }
+
+    int Depth()
+    {
+        return BiTreeDeepth(root);
+    }
+
+    void PreOrder()
+    {
+        PreOrderTraverse(root);
+    }
+
+    void InOrder()
+    {
+        InOrderTraverse(root);
+    }
+
+    void PostOrder()
+    {
+        PostOrderTraverse(root);
+    }
+
+    TElemType Root()
+    {
+        if (Empty())
+            return Nil;
+        else
+            return root->data;
+    }
+
+private:
+    Status visit(TElemType e)
+    {
+        printf("%c", e);
+        return OK;
     }
 
     // 试试改为一维指针是什么效果
@@ -75,11 +117,6 @@ public:
             free(*T);
             *T = NULL;
         }
-    }
-
-    void Create()
-    {
-        CreateBiTree(&root);
     }
 
     void CreateBiTree(BiTree *T)
@@ -101,19 +138,6 @@ public:
         }
     }
 
-    Status Empty()
-    {
-        if (root)
-            return ERROR;
-        else
-            return OK;
-    }
-
-    int Depth()
-    {
-        return BiTreeDeepth(root);
-    }
-
     int BiTreeDeepth(BiTree T)
     {
         int i = 0, j = 0;
@@ -128,14 +152,6 @@ public:
         return i > j ? i + 1 : j + 1;
     }
 
-    TElemType Root()
-    {
-        if (Empty())
-            return Nil;
-        else
-            return root->data;
-    }
-
     TElemType Value(BiTree T)
     {
         return T->data;
@@ -144,11 +160,6 @@ public:
     void Assign(BiTree T, TElemType value)
     {
         T->data = value;
-    }
-
-    void PreOrder()
-    {
-        PreOrderTraverse(root);
     }
 
     void PreOrderTraverse(BiTree T)
@@ -160,11 +171,6 @@ public:
         PreOrderTraverse(T->rchild);
     }
 
-    void InOrder()
-    {
-        InOrderTraverse(root);
-    }
-
     void InOrderTraverse(BiTree T)
     {
         if (NULL == T)
@@ -172,11 +178,6 @@ public:
         InOrderTraverse(T->lchild);
         printf("%c", T->data);
         InOrderTraverse(T->rchild);
-    }
-
-    void PostOrder()
-    {
-        PostOrderTraverse(root);
     }
 
     void PostOrderTraverse(BiTree T)
